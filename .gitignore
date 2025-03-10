@@ -11,3 +11,5 @@ cypress/screenshots/
 cypress/reports/
 reports/
 mochawesome-report/
+
+DesafioAccentureAPI.postman_collection.json
