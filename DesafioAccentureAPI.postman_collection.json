@@ -1,0 +1,563 @@
+{
+	"info": {
+		"_postman_id": "374f4e8c-c960-49c0-a447-262d2755e97c",
+		"name": "Desafio Accenture API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23022453"
+	},
+	"item": [
+		{
+			"name": "userCriation",
+			"item": [
+				{
+					"name": "User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();\r",
+									"let userID = response.userID;\r",
+									"pm.collectionVariables.set(\"userID\", userID);\r",
+									"\r",
+									"\r",
+									"var schema = {\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"title\": \"Generated schema for Root\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"userID\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"username\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"books\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": {}\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"userID\",\r",
+									"    \"username\",\r",
+									"    \"books\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test('Validando estrutura do body', function (){\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "userName",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "Password",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"{{userName}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{environment}}/Account/v1/User",
+							"host": [
+								"{{environment}}"
+							],
+							"path": [
+								"Account",
+								"v1",
+								"User"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tokenGeneration",
+			"item": [
+				{
+					"name": "GenerateToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json(); \r",
+									"let token = response.token;\r",
+									"pm.collectionVariables.set(\"authToken\", token);\r",
+									"\r",
+									"\r",
+									"var schema =  {\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"title\": \"Generated schema for Root\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"token\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"expires\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"status\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"result\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"token\",\r",
+									"    \"expires\",\r",
+									"    \"status\",\r",
+									"    \"result\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test('Validando estrutura do body', function (){\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "userName",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "password",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"{{userName}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{environment}}/Account/v1/GenerateToken",
+							"host": [
+								"{{environment}}"
+							],
+							"path": [
+								"Account",
+								"v1",
+								"GenerateToken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "userConfirm",
+			"item": [
+				{
+					"name": "Authorized",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status request 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "userName",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "password",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"{{userName}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{environment}}/Account/v1/Authorized",
+							"host": [
+								"{{environment}}"
+							],
+							"path": [
+								"Account",
+								"v1",
+								"Authorized"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bookList",
+			"item": [
+				{
+					"name": "Books",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"title\": \"Generated schema for Root\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"books\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": {\r",
+									"        \"type\": \"object\",\r",
+									"        \"properties\": {\r",
+									"          \"isbn\": {\r",
+									"            \"type\": \"string\"\r",
+									"          },\r",
+									"          \"title\": {\r",
+									"            \"type\": \"string\"\r",
+									"          },\r",
+									"          \"subTitle\": {\r",
+									"            \"type\": \"string\"\r",
+									"          },\r",
+									"          \"author\": {\r",
+									"            \"type\": \"string\"\r",
+									"          },\r",
+									"          \"publish_date\": {\r",
+									"            \"type\": \"string\"\r",
+									"          },\r",
+									"          \"publisher\": {\r",
+									"            \"type\": \"string\"\r",
+									"          },\r",
+									"          \"pages\": {\r",
+									"            \"type\": \"number\"\r",
+									"          },\r",
+									"          \"description\": {\r",
+									"            \"type\": \"string\"\r",
+									"          },\r",
+									"          \"website\": {\r",
+									"            \"type\": \"string\"\r",
+									"          }\r",
+									"        },\r",
+									"        \"required\": [\r",
+									"          \"isbn\",\r",
+									"          \"title\",\r",
+									"          \"subTitle\",\r",
+									"          \"author\",\r",
+									"          \"publish_date\",\r",
+									"          \"publisher\",\r",
+									"          \"pages\",\r",
+									"          \"description\",\r",
+									"          \"website\"\r",
+									"        ]\r",
+									"      }\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"books\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test('Validando estrutura do body', function (){\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{environment}}/BookStore/v1/Books",
+							"host": [
+								"{{environment}}"
+							],
+							"path": [
+								"BookStore",
+								"v1",
+								"Books"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rentBook",
+			"item": [
+				{
+					"name": "Books",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"title\": \"Generated schema for Root\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"books\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": {\r",
+									"        \"type\": \"object\",\r",
+									"        \"properties\": {\r",
+									"          \"isbn\": {\r",
+									"            \"type\": \"string\"\r",
+									"          }\r",
+									"        },\r",
+									"        \"required\": [\r",
+									"          \"isbn\"\r",
+									"        ]\r",
+									"      }\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"books\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test('Validando estrutura do body', function (){\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "userID",
+								"value": "{{userID}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"{{userID}}\",\r\n  \"collectionOfIsbns\": [\r\n    {\r\n        \"isbn\": \"9781491904244\"\r\n    },\r\n    {\r\n        \"isbn\": \"9781593277574\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{environment}}/BookStore/v1/Books",
+							"host": [
+								"{{environment}}"
+							],
+							"path": [
+								"BookStore",
+								"v1",
+								"Books"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "userDetail",
+			"item": [
+				{
+					"name": "UserId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status request 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{environment}}/Account/v1/User/{{userID}}",
+							"host": [
+								"{{environment}}"
+							],
+							"path": [
+								"Account",
+								"v1",
+								"User",
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "environment",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
